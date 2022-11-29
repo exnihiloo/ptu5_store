@@ -5,6 +5,10 @@ from django.urls import reverse
 
 User = get_user_model()
 
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return super(ProductManager, self).get_queryset().filter(is_active = True)
+
 
 class Category(models.Model):
     name = models.CharField(_('name'), max_length = 255, db_index = True)
@@ -34,15 +38,17 @@ class Product(models.Model):
         related_name = 'creator'
     )
     name = models.CharField(_('name'), max_length = 255)
-    artist = models.CharField(_('artist'), max_length = 255, default='admin')
+    artist = models.CharField(_('artist'), max_length = 255, default='unknown')
     description = models.TextField(_('description'), blank = True)
-    image = models.ImageField(_('image'), upload_to = 'images/')
+    image = models.ImageField(_('image'), upload_to = 'images/', default = 'images/default.png')
     slug = models.SlugField(max_length = 255, unique = True)
     price = models.DecimalField(_('price'), max_digits = 4, decimal_places = 2)
     in_stock = models.BooleanField(_('in_stock'), default = True)
     is_active = models.BooleanField(_('is_active'), default = True)
     created = models.DateTimeField(auto_now_add = True)
     updated = models.DateTimeField(auto_now = True)
+    objects = models.Manager()
+    products = ProductManager()
 
     class Meta:
         verbose_name = _('Product')
