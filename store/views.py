@@ -2,14 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from . import models
 
 
-def categories(request):
-    return {
-        'categories': models.Category.objects.all()
-    }
 
 
 def all_products(request):
-    products = models.Product.objects.all()
+    products = models.Product.products.all()
     return render(request, 'store/home.html', {'products' : products})
 
 
