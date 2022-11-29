@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -13,6 +13,9 @@ class Category(models.Model):
     class Meta:
         verbose_name = _('Category')
         verbose_name_plural = _('Categories')
+
+    def get_absolute_url(self):
+        return reverse("store:product_detail", args = [self.slug])
 
     def __str__(self):
         return self.name
@@ -45,6 +48,10 @@ class Product(models.Model):
         verbose_name = _('Product')
         verbose_name_plural = _('Products')
         ordering = ('-created', )
+
+    def get_absolute_url(self):
+        return reverse("store:product_detail", args = [self.slug])
+    
 
     def __str__(self):
         return self.name
