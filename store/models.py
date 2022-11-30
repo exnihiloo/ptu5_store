@@ -1,9 +1,10 @@
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
-User = get_user_model()
+
+
 
 class ProductManager(models.Manager):
     def get_queryset(self):
@@ -33,7 +34,7 @@ class Product(models.Model):
         on_delete = models.CASCADE
     )
     created_by = models.ForeignKey(
-        User, 
+        settings.AUTH_USER_MODEL, 
         on_delete = models.CASCADE, 
         related_name = 'creator'
     )

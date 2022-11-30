@@ -1,0 +1,7 @@
+{% autoescape off %}
+Greetings {{ user.username }}
+
+Your account was created. Please click link below to activate it.
+
+http://{{ domain }}{% url 'account:activate' uidb64=uid token = token %}
+{% endautoescape %}
