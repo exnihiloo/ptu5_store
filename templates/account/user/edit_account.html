@@ -25,7 +25,7 @@
                 <form class="account-form px-4 pt-4" method="post" enctype="multipart/form-data">
 
                     {% if user_form.is_valid and profile_form.is_valid  %}
-                    <div class="alert alert-primary" role="alert">
+                    <div class="alert alert-success" role="alert">
                         Profile details successfully updated!
                     </div>
                     <p class="small text-center pt-0">
@@ -63,6 +63,7 @@
                     {{ user_form.country }}
                     <label class="small font-weight-bold">{{ user_form.town_city.label}}</label>
                     {{ user_form.town_city }}
+                    
 
 
 
