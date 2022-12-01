@@ -24,7 +24,7 @@ class UserEditForm(forms.ModelForm):
     )
 
     username = forms.CharField(
-        label=_('Username'), min_length=4, max_length=50, widget=forms.TextInput(
+        label=_('Username (can not be changed)'), min_length=4, max_length=50, widget=forms.TextInput(
             attrs={'class': 'form-control mb-3', 'placeholder': 'Username', 'id': 'form-firstname', 'readonly': 'readonly'})
     )
 
@@ -33,9 +33,49 @@ class UserEditForm(forms.ModelForm):
             attrs={'class': 'form-control mb-3', 'placeholder': 'Firstname', 'id': 'form-lastname'})
     )
 
+    last_name = forms.CharField(
+        label=_('Last name'), min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Lastname', 'id': 'form-lastname'})
+    )
+    
+    phone_number = forms.CharField(
+        label=_('Last name'), min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Phone number', 'id': 'form-lastname'})
+    )
+    
+    address_line_1 = forms.CharField(
+        label=_('Address line 1'), min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Address line 1', 'id': 'form-lastname'})
+    )
+
+    address_line_2 = forms.CharField(
+        label=_('Address line 2'), min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Address line 2', 'id': 'form-lastname'})
+    )
+
+    postcode = forms.CharField(
+        label=_('Postcode'), min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Postcode', 'id': 'form-lastname'})
+    )
+
+    country = forms.CharField(
+        label=_('Country'), min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Country', 'id': 'form-lastname'})
+    )
+
+    town_city = forms.CharField(
+        label=_('City'), min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'City', 'id': 'form-lastname'})
+    )
+
+
+
     class Meta:
         model = models.UserBase
-        fields = ('email', 'username', 'first_name',)
+        fields = (
+            'email', 'username', 'first_name', 
+            'last_name', 'phone_number', 'address_line_1', 
+            'address_line_2', 'postcode', 'country', 'town_city')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
