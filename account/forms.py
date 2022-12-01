@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(
-        attrs={'class': 'form-control mb-3', 'placeholder': 'Username', 'id': 'login-username'}))
+        attrs={'class': 'form-control mb-3', 'placeholder': 'Email', 'id': 'login-username'}))
     password = forms.CharField(widget=forms.PasswordInput(
         attrs={
             'class': 'form-control',
@@ -15,6 +15,32 @@ class UserLoginForm(AuthenticationForm):
             'id': 'login-pwd',
         }
     ))
+
+
+class UserEditForm(forms.ModelForm):
+    email = forms.EmailField(
+        label=_('Account email (can not be changed)'), max_length=200, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'email', 'id': 'form-email', 'readonly': 'readonly'})
+    )
+
+    username = forms.CharField(
+        label=_('Username'), min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Username', 'id': 'form-firstname', 'readonly': 'readonly'})
+    )
+
+    first_name = forms.CharField(
+        label=_('First name'), min_length=4, max_length=50, widget=forms.TextInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': 'Firstname', 'id': 'form-lastname'})
+    )
+
+    class Meta:
+        model = models.UserBase
+        fields = ('email', 'username', 'first_name',)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].required = True
+        self.fields['email'].required = True
 
 
 class RegistrationForm(forms.ModelForm):
