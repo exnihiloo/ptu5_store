@@ -29,6 +29,15 @@ def edit_account(request):
     return render(request, 'account/user/edit_account.html', {'user_form' : user_form})
 
 
+@login_required
+def delete_profile(request):
+    user = models.UserBase.objects.get(username=request.user)
+    user.is_active = False
+    user.save()
+    logout(request)
+    return redirect('account:delete_confirmation')
+
+
 def account_register(request):
     if request.user.is_authenticated:
         return redirect('account:dashboard')
