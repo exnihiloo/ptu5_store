@@ -17,10 +17,30 @@ class UserLoginForm(AuthenticationForm):
     ))
 
 
+class PasswordResetForm(PasswordResetForm):
+    email = forms.EmailField(max_length=255, widget=forms.TextInput(
+        attrs={'class': 'form-control mb-3', 'placeholder': 'Email', 'id': 'form-email'}))
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        u_email = models.UserBase.objects.filter(email = email)
+        if not u_email:
+            raise forms.ValidationError(_('Provided email does not exists.'))
+        return email
+
+class PasswordResetConfirmForm(SetPasswordForm):
+    new_password1 = forms.CharField(
+        label = _('New password'), widget = forms.PasswordInput(
+            attrs = {'class': 'form-control mb-3', 'placeholder': _('New Password'), 'id': 'form-newpassword'}))
+    new_password2 = forms.CharField(
+        label = _('Repeat password'), widget = forms.PasswordInput(
+            attrs={'class': 'form-control mb-3', 'placeholder': _('Repeat password'), 'id': 'form-new-password2'}))
+
+
 class UserEditForm(forms.ModelForm):
     email = forms.EmailField(
-        label=_('Account email (can not be changed)'), max_length=200, widget=forms.TextInput(
-            attrs={'class': 'form-control mb-3', 'placeholder': 'email', 'id': 'form-email', 'readonly': 'readonly'})
+        label = _('Account email (can not be changed)'), max_length = 200, widget = forms.TextInput(
+            attrs = {'class': 'form-control mb-3', 'placeholder': 'email', 'id': 'form-email', 'readonly': 'readonly'})
     )
 
     username = forms.CharField(
