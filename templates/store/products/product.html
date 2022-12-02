@@ -1,21 +1,22 @@
 {% extends "store/base.html" %}
-{% load static %}
+{% load static i18n %}
 {% block title %}
 {{ product.name }}
 {% endblock %}
 {% block content %}
+
 <div class="container">
     <main class="pt-5 mt-5 mb-5">
         <div class="row g-3">
-            <div class="col-md-5 col-lg-5 order-md-first bg-light">
+            <div class="col-md-4 col-lg-4 order-md-first bg-light">
                 <img class="img-fluid mx-auto d-block center" width="200px" alt="Responsive image" src="{{ product.image.url }}">
             </div>
             <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
-                <h1 class="mb-4 h4">{{ product.title }}</h1>
-                <p><span class="lead">{{ product.artist }}</span> (Author)</p>
+                <h1 class="mb-6 h1">{{ product.name }}</h1>
+                <p><span class="lead">{{ product.artist }}</span> ({% trans "Artist" %})</p>
                 <p>{{ product.description|slice:":355" }}...</p>
-                <div class="border">
-                    <div class="col border-bottom">
+                <div class="border border-primary">
+                    <div class="col border-bottom border-primary">
                         <div class="row p-3">
                             <div class="col-6">Price</div>
                             <div class="col-6 text-end"><span class="h4 fw-bold">€{{ product.price }}</span></div>
@@ -24,44 +25,44 @@
                     <div class="col">
                         <div class="row p-3">
                             <div class="col-6">
-                                <label for="select">Quantity</label>
+                                <label for="select">{% trans "Quantity" %}</label>
                                 <select id="select">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                 </select>
-
                             </div>
                             {% if user.is_authenticated %}
                                     <div class="row">
                                         <div class="col-12 text-end p-1 mb-2">
-                                            <button type="button" id="add-button" value="{{ product.id }}" class="btn btn-secondary btn-sm">Add to basket</button></div>
-                                    </div>
+                                            <button type="button" id="add-button" value="{{ product.id }}" class="btn btn-secondary btn-sm">{% trans "Add to basket" %}</button></div>
+                                    {% comment %} </div> {% endcomment %}
                                     
-                                    <div class="row">
+                                    {% comment %} <div class="row"> {% endcomment %}
                                         <div class="col-12 text-end">
-                                    <a href="{% url 'account:user_wishlist' product.id %}" class="btn btn-success btn-sm" role="button" aria-pressed="true">To wishlist</a></div>
+                                            <a href="{% url 'account:user_wishlist' product.id %}" class="btn btn-success btn-sm" role="button" aria-pressed="true">{% trans "To wishlist" %}</a></div>
                                     </div>
-                                    <div class="container pt-2">
+                                    <div class="container pt-1">
                                         {% if messages %}
                                             <div class="alert alert-success" alert-"{{ message.tags }}" role="alert">
                                             {% for message in messages  %}
-                                              {{message|safe}} - <a href="{% url "account:wishlist" %}" class="alert-link">Your Wishlist</a>.
+                                              {{message|safe}} - <a href="{% url "account:wishlist" %}" class="alert-link">{% trans "Your Wishlist" %}</a>.
                                             {% endfor %}
                                             </div>
                                         {% endif %}
+                                    </div>
                             {% else %}
                                 <div class="row">
                                     <div class="col-12 text-end p-1">
-                                        <button type="button" aria-disabled="true" class="btn btn-secondary btn-sm disabled">Add to basket</button></div>
+                                        <button type="button" aria-disabled="true" class="btn btn-secondary btn-sm disabled">{% trans "Add to basket" %}</button></div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 text-end">
-                                        <button type="button" class="btn btn-success btn-sm disabled" aria-disabled="true">To wishlist</button></div>
+                                        <button type="button" class="btn btn-success btn-sm disabled" aria-disabled="true">{% trans "To wishlist" %}</button></div>
                                 </div>
                                 <p class="text-center pb-3 mt-5">
-                                    <a href="{% url "account:register" %}">To create basket or wishlist you need to register</a>
+                                    <a href="{% url "account:register" %}">{% trans "To create basket or wishlist you need to register" %}</a>
                                 </p>
                             {% endif %}
                         </div>
@@ -70,7 +71,6 @@
             </div>
         </div>
     </main>
-
 </div>
 
 <script>
@@ -92,5 +92,4 @@
         });
     })
 </script>
-
 {% endblock %}

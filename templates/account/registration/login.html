@@ -1,4 +1,5 @@
 {% extends 'store/base.html' %}
+{% load i18n %}
 {% block title %}Log-in{% endblock title %}
 {% block content %}
 
@@ -9,7 +10,7 @@
 
     .account-form input {
         border: 2px solid #ccc;
-        height: calc(2em + .75rem + 2px);
+        height: calc(2rem + .75rem + 2px);
     }
 
     .account-form input:focus {
@@ -28,11 +29,11 @@
                             <form class="account-form rounded" action="{% url 'account:login' %}" method="post">
 
                                 {% csrf_token %}
-                                <h3 class="mb-4">Sign In</h3>
+                                <h3 class="mb-4">{% trans "Sign In" %}</h3>
 
                                 {% if form.errors %}
                                 <div class="alert alert-primary" role="alert">
-                                    Error: Username or Password not correct!
+                                    {% trans "Error: Username or Password not correct!" %}
                                 </div>
                                 {% endif %}
 
@@ -43,14 +44,14 @@
                                 {{ form.password}}
                                 <div class="d-grid gap-2">
                                     <input type="hidden" name="next" value="{{ next }}">
-                                    <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Sign in
+                                    <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">{% trans "Sign in" %}
                                     </button>
                                 </div>
                                 <p class="text-center pb-3">
-                                    <a href="{% url "account:register" %}">Create an account</a>
+                                    <a href="{% url "account:register" %}">{% trans "Create an account" %}</a>
                                 </p>
                                 <p class="text-center pb-3">
-                                    <a href="{% url "account:password_reset" %}">In case you forgot your password click here.</a>
+                                    <a href="{% url "account:password_reset" %}">{% trans "In case you forgot your password click here." %}</a>
                                 </p>
                             </form>
                             </p>
@@ -61,4 +62,5 @@
         </div>
     </div>
 </div>
+
 {% endblock content %}
