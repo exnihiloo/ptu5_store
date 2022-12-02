@@ -3,12 +3,11 @@
 
 {% block content %}
 <div class="col-6 mx-auto mt-5">
-  <h1 class="h3">My Wishlist</h1>
-  <div>Manage your wishlist</div>
-  <hr />
   {% if wishlist %}
   {% for product in wishlist  %}
-
+    <h1 class="h3">My Wishlist</h1>
+    <div>Manage your wishlist</div>
+    <hr />
   <div class="card mb-5 rounded-0">
     <div class="row g-0">
       <div class="col-md-2">
