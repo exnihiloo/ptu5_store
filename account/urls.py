@@ -36,5 +36,8 @@ urlpatterns = [
     path('password_reset_complete/', TemplateView.as_view(template_name="account/user/reset_status.html"),
                                                             name='password_reset_complete'),
 
+    path('wishlist/add_to_wishlist/<int:id>', views.add_wishlist, name = 'user_wishlist'),
+    path('wishlist', views.wishlist, name = 'wishlist')
+
     
 ]

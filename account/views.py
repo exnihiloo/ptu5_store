@@ -1,17 +1,36 @@
-from django.core.mail import send_mail
+from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponse
-from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
-from django.utils.encoding import force_bytes, force_str
+from django.http import HttpResponse, HttpResponseRedirect
+from store.models import Product
+# from django.template.loader import render_to_string
+# from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+# from django.utils.encoding import force_bytes, force_str
 from django.utils.translation import gettext_lazy as _
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistrationForm, UserEditForm
 from . import models
 
 
+@login_required
+def add_wishlist(request, id):
+    product = get_object_or_404(Product, id = id)
+    if product.users_wishlist.filter(id = request.user.id).exists():
+        product.users_wishlist.remove(request.user)
+        messages.success(request, product.name + " has been removed from your WishList")
+    else:
+        product.users_wishlist.add(request.user)
+        messages.success(request, "Added " + product.name + " to your WishList")
+    return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
+
+@login_required
+def wishlist(request):
+    products = Product.objects.filter(users_wishlist = request.user)
+    return render(request, 'account/user/user_wishlist.html', {'wishlist' : products})
+
+        
 
 @login_required
 def dashboard(request):

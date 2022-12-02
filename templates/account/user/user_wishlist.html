@@ -1,0 +1,34 @@
+{% extends "store/base.html" %}
+{% block title %}Wishlist{% endblock %}
+
+{% block content %}
+<div class="col-6 mx-auto mt-5">
+  <h1 class="h3">My Wishlist</h1>
+  <div>Manage your wishlist</div>
+  <hr />
+  {% if wishlist %}
+  {% for product in wishlist  %}
+
+  <div class="card mb-5 rounded-0">
+    <div class="row g-0">
+      <div class="col-md-2">
+          <img class="img-fluid d-block p-1" width="155px" src="{{ product.image.url }}"/>
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <a class="card-title h5" href="{{ product.get_absolute_url }}">{{product.name}}</a>
+          <p class="card-text">{{product.description}}</p>
+          <p class="card-text"><small class="text-muted"><strong>{{product.price}}€</strong></small></p>
+          <div class='col-12 text-end'>
+            <a type="button" class="btn btn-primary fw500 btn-sm" href="{% url 'account:user_wishlist' product.id %}">Remove from Wishlist</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="card-text">No products have been added to your wishlist yet</p>
+  {% endif %}
+</div>
+{% endblock content %}

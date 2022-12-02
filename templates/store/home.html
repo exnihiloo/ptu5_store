@@ -6,15 +6,20 @@
 
 
 <main>
-
+  
   <section class="py-5 text-center container">
     <div class="row py-lg-2">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="h1 fw-bold">Music for your soul</h1>
-        <p class="lead text-muted">Enjoy the best music from our vinyl collection.</p>
-        <p>
-          <a href="{% url 'account:register' %}" class="btn btn-primary my-2">Make an account</a>
-        </p>
+        {% if user.is_authenticated %}
+          <h1 class="h1 fw-bold"> {% if user.first_name %} {{ user.first_name }}{% else %} {{ user.username }}{% endif %}, welcome back.</h1>
+          <p class="lead text-muted">Here we have some vinyl collection for you.</p>
+        {% else %}
+          <h1 class="h1 fw-bold">Music for your soul</h1>
+          <p class="lead text-muted">Enjoy the best music from our vinyl collection.</p>
+          <p>
+          <a href="{% url 'account:register' %}" class="btn btn-primary my-2">Register</a>
+          </p>
+        {% endif %}
       </div>
     </div>
   </section>
