@@ -1,6 +1,6 @@
 {% extends "store/base.html" %}
 {% load static %}
-{% block title %}Pay for the order{% endblock %}
+{% block title %}Place order{% endblock %}
 {% block content %}
 
 <style>
@@ -27,77 +27,71 @@
         <div class="container">
           <div class="row">
             <div id="payment-form" class="col-12 col-lg-6 mx-auto">
-              <h3 class="mb-4">Billing address</h3>
-              
-              <div id="card-errors" class="a" role="alert"></div>
-              <form>
-                <div class="row g-3">
-                  <div class="col-sm-7">
-                    <label for="firstName" class="form-label">Customer's Name</label>
-                    <input type="text" class="form-control" id="custName" placeholder="" required>
-                    <div class="invalid-feedback">
-                      Valid first name is required.
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                    <div class="invalid-feedback">
-                      Please enter a valid email address for shipping updates.
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <label for="address" class="form-label">Address</label>
-                    <input type="text" class="form-control" id="custAdd" placeholder="M.K.Čiurlionio" required>
-                    <div class="invalid-feedback">
-                      Please enter your shipping address.
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <label for="address2" class="form-label">Address 2 <span
-                        class="text-muted">(Optional)</span></label>
-                    <input type="text" class="form-control" id="custAdd2" placeholder="Apartment or suite">
-                  </div>
-                  <div class="col-md-5">
-                    <label for="country" class="form-label">Country</label>
-                    <select class="form-select" id="country" required>
-                      <option value="">Choose...</option>
-                      <option>Lithuania</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please select a valid country.
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <label for="city" class="form-label">City/Town/Village</label>
-                    <input type="text" class="form-control" id="custAdd" placeholder="Vilnius" required>
-                    <div class="invalid-feedback">
-                      Please enter city.
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <label for="Postcode" class="form-label">Postcode</label>
-                    <input type="text" class="form-control" id="postCode" placeholder="" required>
-                    <div class="invalid-feedback">
-                      Post code is required.
-                    </div>
-                  </div>
-                </div>
-                <hr class="my-4">
-                <h4 class="mb-3">Choose delivery method</h4>
-                <div id="card-element" class="form-control form-control-payment">
-                    <div class="custom-control custom-radio">
-                        <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
-                        <label class="custom-control-label" for="customControlValidation2">Toggle this custom radio</label>
+              <h3 class="mb-4">Order details</h3>
+              <hr class="my-4">
+              <h4 class="mb-3">Please provide your shipping details</h4>
+              <form class="account-form rounded">
+                <div class="form-control" id="mycode">
+                <div id="card-errors" class="a" role="alert"></div>
+                {% comment %} <form class="account-form rounded"> {% endcomment %}
+                  <div class="row g-3">
+                    <div class="col-sm-7">
+                      <label for="firstName" class="form-label">Customer's Name</label>
+                      <input type="text" class="form-control" id="custName" placeholder="" required>
+                      <div class="invalid-feedback">
+                        Valid first name is required.
                       </div>
-                      <div class="custom-control custom-radio mb-3">
-                        <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked" required>
-                        <label class="custom-control-label" for="customControlValidation3">Or toggle this other custom radio</label>
                     </div>
-                </div>
-                <hr class="my-4">
-                <button id="submit" class="btn btn-primary w-100 fw-bold" data-secret="{{ client_secret }}">Place order</button>
+                    <div class="col-12">
+                      <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+                      <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                      <div class="invalid-feedback">
+                        Please enter a valid email address for shipping updates.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="address" class="form-label">Address</label>
+                      <input type="text" class="form-control" id="custAdd" placeholder="M.K.Čiurlionio" required>
+                      <div class="invalid-feedback">
+                        Please enter your shipping address.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="address2" class="form-label">Address 2 <span
+                          class="text-muted">(Optional)</span></label>
+                      <input type="text" class="form-control" id="custAdd2" placeholder="Apartment or suite">
+                    </div>
+                    <div class="col-md-5">
+                      <label for="country" class="form-label">Country</label>
+                      <select class="form-select" id="country" required>
+                        <option value="">Choose...</option>
+                        <option>Lithuania</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please select a valid country.
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <label for="city" class="form-label">City/Town/Village</label>
+                      <input type="text" class="form-control" id="custAdd" placeholder="Vilnius" required>
+                      <div class="invalid-feedback">
+                        Please enter city.
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <label for="Postcode" class="form-label">Postcode</label>
+                      <input type="text" class="form-control" id="postCode" placeholder="" required>
+                      <div class="invalid-feedback">
+                        Post code is required.
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="my-4">
+                  <div class="pt-2 text-end mb-3">Total to pay: <span class="fw-bold h5">€</span><span id="total" class="fw-bold h5">{{basket.get_total_price}}</span></div>
+                  <p class="text-center">You will have to pay for your order on delivery day to our courier</p>
+                  <button id="submit" class="btn btn-primary w-100 fw-bold" data-secret="{{ client_secret }}">Place order</button>
               </form>
+              </div>
             </div>
           </div>
         </div>
@@ -107,11 +101,13 @@
 </div>
 
 
-<script>
+
+
+{% comment %} <script>
     {% comment %} Make csrf token availble in JS files {% endcomment %}
-    var CSRF_TOKEN = '{{ csrf_token }}';
+    {% comment %} var CSRF_TOKEN = '{{ csrf_token }}';
 </script>
 <script src="https://js.stripe.com/v3/"></script>
-<script src="{% static 'payment/index.js' %}" data-rel-js></script>
+<script src="{% static 'payment/index.js' %}" data-rel-js></script> {% endcomment %}
 
 {% endblock %}
