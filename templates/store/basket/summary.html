@@ -1,7 +1,7 @@
 {% extends "store/base.html" %} 
 {% load static %} 
-{% block title %}Basket Summary{%endblock %} {% block content %}
-
+{% block title %}Basket Summary{%endblock title %} 
+{% block content %}
 
 
   <div class="container">
@@ -37,8 +37,8 @@
         </div>
         <div class="text-end">
           
-          <div class="">Sub Total: <span class="fw-bold">€</span><div id="subtotal" class="d-inline-flex fw-bold">{{basket.get_subtotal_price}}</div></div>
-          <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">€3.99</span></div>
+          {% comment %} <div class="">Sub Total: <span class="fw-bold">€</span><div id="subtotal" class="d-inline-flex fw-bold">{{basket.get_subtotal_price}}</div></div> {% endcomment %}
+          {% comment %} <div id="">Shipping <span class="small">(Next day delivery)</span>: <span class="fw-bold">€3.99</span></div> {% endcomment %}
           <div class="pt-2">Total to pay: <span class="fw-bold h5">€</span><span id="total" class="fw-bold h5">{{basket.get_total_price}}</span></div>
           
         </div>
@@ -62,7 +62,7 @@
             <div class="col-md-10 ps-md-3">
               <div class="card-body p-1">
                 <a class="text-decoration-none text-reset" href="{{item.product.get_absolute_url}}">
-                  <p class="card-text pb-3">{{product.title}}</p>
+                  <p class="card-text pb-3">{{product.name}}</p>
                 </a>
                     <label for="select">Qty</label>
                     <select id="select{{product.id}}" style="width:50px;height:31px;">
